@@ -1,11 +1,8 @@
 import streamlit as st
-import webbrowser
 import pandas as pd
-from datetime import datetime
 
 if 'data' not in st.session_state:
     df_data = pd.read_csv('datasets/CLEAN_FIFA23_official_data.csv', index_col=0)
-    #df_data = df_data[df_data['Contract Valid Until'] >= datetime.today().year]
     df_data = df_data[df_data['Value(£)']>0]
     df_data = df_data.sort_values('Overall', ascending=False)
     df_data.set_index('Name', inplace=True)
@@ -20,9 +17,8 @@ st.set_page_config(
 st.markdown('# FIFA23 OFFICIAL DATASET!')
 st.sidebar.markdown('Desenvolvido por [EACosta](https://www.linkedin.com/in/costa-everton/)')
 
-btn = st.button('Acesse os dados no Kaggle')
-if btn:
-    webbrowser.open_new_tab('https://www.kaggle.com/datasets/kevwesophia/fifa23-official-datasetclean-data?select=CLEAN_FIFA23_official_data.csv')
+btn = st.link_button('Acesse os dados no Kaggle',
+                     'https://www.kaggle.com/datasets/kevwesophia/fifa23-official-datasetclean-data?select=CLEAN_FIFA23_official_data.csv')
 
 st.markdown(
     '''
